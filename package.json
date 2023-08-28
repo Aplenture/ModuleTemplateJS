@@ -1,5 +1,5 @@
 {
-    "name": "my_module_name",
+    "name": "<my_module_name>",
     "version": "0.1.0",
     "description": "",
     "main": "dist/index.js",
