@@ -1,1 +1,1 @@
-# ModuleTemplateJS
+# <my_module_name>
