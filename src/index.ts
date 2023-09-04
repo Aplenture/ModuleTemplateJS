@@ -17,18 +17,21 @@ export class Module extends BackendJS.Module.Module<Context, Args, Options> impl
     public readonly myRepository: MyRepository;
 
     constructor(args: BackendJS.Module.Args, options: Options, ...params: CoreJS.Parameter<any>[]) {
-        super(args, options, ...params, new CoreJS.DictionaryParameter('database', 'database config', BackendJS.Database.Parameters));
+        super(args, options, ...params,
+            new CoreJS.DictionaryParameter('databaseConfig', 'database config', BackendJS.Database.Parameters),
+            new CoreJS.StringParameter('databaseTable', 'database table name', 'myDatabaseTable')
+        );
 
-        this.database = new BackendJS.Database.Database(this.options.database, args.debug);
-        this.database.onMessage.on(message => this.onMessage.emit(this, `database '${this.options.database.database}' ${message}`));
+        this.database = new BackendJS.Database.Database(this.options.databaseConfig, args.debug);
+        this.database.onMessage.on(message => this.onMessage.emit(this, `database '${this.options.databaseConfig.database}' ${message}`));
 
-        this.myRepository = new MyRepository(this.database);
+        this.myRepository = new MyRepository(options.databaseTable, this.database);
 
         this.addCommands(Object.values(require('./commands')).map((constructor: any) => new constructor(this)));
     }
 
     public async init(): Promise<void> {
-        await BackendJS.Database.Database.create(this.options.database);
+        await BackendJS.Database.Database.create(this.options.databaseConfig);
         await this.database.init();
         await super.init();
     }

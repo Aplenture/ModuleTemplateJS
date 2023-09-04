@@ -8,7 +8,6 @@
 import * as BackendJS from "backendjs";
 import * as CoreJS from "corejs";
 import { Args as GlobalArgs, Context, Options } from "../core";
-import { loadUpdates } from "../utils/updates";
 
 interface Args extends GlobalArgs {
     readonly version: number;
@@ -21,7 +20,7 @@ export class Update extends BackendJS.Module.Command<Context, Args, Options> {
     );
 
     public async execute(args: Args): Promise<CoreJS.Response> {
-        const version = await this.context.database.update(loadUpdates({ maxVersion: args.version }));
+        const version = await this.context.myRepository.update({ maxVersion: args.version });
 
         return new CoreJS.TextResponse('updated to version ' + version);
     }

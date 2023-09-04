@@ -9,6 +9,5 @@ import * as BackendJS from "backendjs";
 import { MyRepository } from "../repositories";
 
 export interface Context extends BackendJS.Module.Context {
-    readonly database: BackendJS.Database.Database;
     readonly myRepository: MyRepository;
 }

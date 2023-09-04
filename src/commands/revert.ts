@@ -8,7 +8,6 @@
 import * as BackendJS from "backendjs";
 import * as CoreJS from "corejs";
 import { Args as GlobalArgs, Context, Options } from "../core";
-import { loadUpdates } from "../utils/updates";
 
 interface Args extends GlobalArgs {
     readonly version: number;
@@ -21,7 +20,7 @@ export class Revert extends BackendJS.Module.Command<Context, Args, Options> {
     );
 
     public async execute(args: Args): Promise<CoreJS.Response> {
-        const version = await this.context.database.revert(loadUpdates({ minVersion: args.version }));
+        const version = await this.context.myRepository.revert({ minVersion: args.version });
 
         return new CoreJS.TextResponse('reverted to version ' + version);
     }

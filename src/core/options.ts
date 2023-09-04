@@ -8,5 +8,6 @@
 import * as BackendJS from "backendjs";
 
 export interface Options extends BackendJS.Module.Options {
-    readonly database: BackendJS.Database.Config;
+    readonly databaseConfig: BackendJS.Database.Config;
+    readonly databaseTable?: string;
 }

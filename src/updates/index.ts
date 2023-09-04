@@ -5,4 +5,4 @@
  * MIT License https://github.com/Aplenture/<my_module_name>/blob/main/LICENSE
  */
 
-export * from "./myUpdate";
+export * from "./MyRepository";

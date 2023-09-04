@@ -8,7 +8,6 @@
 import * as BackendJS from "backendjs";
 import * as CoreJS from "corejs";
 import { Args as GlobalArgs, Context, Options } from "../core";
-import { loadUpdates } from "../utils/updates";
 
 interface Args extends GlobalArgs {
     readonly versions: readonly number[];
@@ -21,7 +20,7 @@ export class Reset extends BackendJS.Module.Command<Context, Args, Options> {
     );
 
     public async execute(args: Args): Promise<CoreJS.Response> {
-        await this.context.database.reset(loadUpdates({ versions: args.versions }));
+        await this.context.myRepository.reset({ versions: args.versions });
 
         return new CoreJS.TextResponse('reset');
     }

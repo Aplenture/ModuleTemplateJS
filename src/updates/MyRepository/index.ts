@@ -5,7 +5,4 @@
  * MIT License https://github.com/Aplenture/<my_module_name>/blob/main/LICENSE
  */
 
-import * as BackendJS from "backendjs";
-
-export class MyRepository extends BackendJS.Database.Repository<string> {
-}
+export * from "./myUpdate";

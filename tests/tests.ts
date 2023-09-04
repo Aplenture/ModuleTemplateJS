@@ -15,7 +15,7 @@ const args = {
 
 const config = {
     name: "test",
-    database: {
+    databaseConfig: {
         host: "localhost",
         user: "dev",
         password: "",
