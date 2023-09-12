@@ -29,9 +29,14 @@ const log = BackendJS.Log.Log.createFileLog('./test.log', true);
 m.onMessage.on(message => log.write(message));
 
 describe("Module", () => {
-    it("initializes", () => m.init());
-    it("updates", () => m.execute('update').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
-    it("resets", () => m.execute('reset').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
-    it("reverts", () => m.execute('revert').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
-    it("closes", () => m.deinit());
+    describe("Initialization", () => {
+        it("initializes", () => m.init());
+        it("updates", () => m.execute('update').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
+        it("resets", () => m.execute('reset').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
+    });
+
+    describe("Deinitialization", () => {
+        it("reverts", () => m.execute('revert').then((result: any) => expect(result.code).equals(200, 'wrong response code')));
+        it("closes", () => m.deinit());
+    });
 });
