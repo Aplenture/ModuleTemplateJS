@@ -22,7 +22,11 @@ export class Module extends BackendJS.Module.Module<Context, Args, Options> impl
             new CoreJS.StringParameter('databaseTable', 'database table name', 'myDatabaseTable')
         );
 
-        this.database = new BackendJS.Database.Database(this.options.databaseConfig, args.debug);
+        this.database = new BackendJS.Database.Database(this.options.databaseConfig, {
+            debug: args.debug,
+            multipleStatements: true
+        });
+
         this.database.onMessage.on(message => this.onMessage.emit(this, `database '${this.options.databaseConfig.database}' ${message}`));
 
         this.myRepository = new MyRepository(this.options.databaseTable, this.database, __dirname + '/updates/' + MyRepository.name);
